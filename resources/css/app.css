@@ -1,12 +1,39 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
-@source "../**/*.blade.php";
-@source "../**/*.js";
-@source "../**/*.vue";
+@source '../**/*.blade.php';
+@source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Role onujayi rong. <html data-role="..."> theke ashe */
+:root[data-role='director'] {
+    --accent-1: #4338ca;
+    --accent-2: #7c3aed;
+    --accent-ink: #4338ca;
+}
+
+:root[data-role='head'] {
+    --accent-1: #0f766e;
+    --accent-2: #0891b2;
+    --accent-ink: #0f766e;
+}
+
+:root[data-role='employee'] {
+    --accent-1: #c2410c;
+    --accent-2: #be185d;
+    --accent-ink: #c2410c;
+}
+
+@utility accent-gradient {
+    background-image: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+}
+
+@utility accent-ink {
+    color: var(--accent-ink);
 }
