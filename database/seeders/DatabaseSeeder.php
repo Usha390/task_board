@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -10,42 +9,22 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $marketing = Department::firstOrCreate(
-            ['name' => 'Marketing'],
-            ['description' => 'Marketing department']
-        );
+        $email = env('DIRECTOR_EMAIL');
+        $password = env('DIRECTOR_PASSWORD');
+
+        if (! $email || ! $password) {
+            $this->command->error('DIRECTOR_EMAIL ar DIRECTOR_PASSWORD age .env file e set koro.');
+
+            return;
+        }
 
         User::updateOrCreate(
-            ['email' => 'director@taskboard.test'],
+            ['email' => $email],
             [
-                'name' => 'Director',
-                'password' => 'password123',
+                'name' => env('DIRECTOR_NAME', 'Director'),
+                'password' => $password,
                 'role' => User::ROLE_DIRECTOR,
                 'department_id' => null,
-                'is_active' => true,
-            ]
-        );
-
-        $head = User::updateOrCreate(
-            ['email' => 'head@taskboard.test'],
-            [
-                'name' => 'Marketing Head',
-                'password' => 'password123',
-                'role' => User::ROLE_HEAD,
-                'department_id' => $marketing->id,
-                'is_active' => true,
-            ]
-        );
-
-        $marketing->update(['head_id' => $head->id]);
-
-        User::updateOrCreate(
-            ['email' => 'employee@taskboard.test'],
-            [
-                'name' => 'Marketing Employee',
-                'password' => 'password123',
-                'role' => User::ROLE_EMPLOYEE,
-                'department_id' => $marketing->id,
                 'is_active' => true,
             ]
         );
