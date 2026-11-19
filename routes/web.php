@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:director')->group(function () {
         Route::get('/director/dashboard', [DashboardController::class, 'director'])->name('director.dashboard');
+
+        Route::resource('departments', DepartmentController::class)->except(['show', 'destroy']);
     });
 
     Route::middleware('role:head')->group(function () {

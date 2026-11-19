@@ -35,7 +35,7 @@
         @foreach ($items as $item)
             @if (Route::has($item['route']))
                 <a href="{{ route($item['route']) }}"
-                   class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold {{ request()->routeIs($item['route']) ? 'accent-ink bg-white shadow-sm' : 'text-white/90 hover:bg-white/15' }}">
+                   class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold {{ request()->routeIs($item['route'], \Illuminate\Support\Str::before($item['route'], '.') . '.*') ? 'accent-ink bg-white shadow-sm' : 'text-white/90 hover:bg-white/15' }}">
                     <span class="text-lg">{{ $item['icon'] }}</span>
                     {{ $item['label'] }}
                 </a>

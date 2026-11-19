@@ -53,8 +53,14 @@
                 </div>
             </header>
 
-            {{-- Page content --}}
+                        {{-- Page content --}}
             <main class="flex-1 p-4 sm:p-6">
+                @if (session('success'))
+                    <div class="mb-6 rounded-xl bg-emerald-50 p-4 text-sm font-medium text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/30">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 {{ $slot }}
             </main>
         </div>
