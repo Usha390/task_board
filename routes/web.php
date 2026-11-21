@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/director/dashboard', [DashboardController::class, 'director'])->name('director.dashboard');
 
         Route::resource('departments', DepartmentController::class)->except(['show', 'destroy']);
+
+        Route::resource('employees', EmployeeController::class)
+            ->parameters(['employees' => 'user'])
+            ->except(['show', 'destroy']);
+        Route::patch('/employees/{user}/status', [EmployeeController::class, 'toggleStatus'])->name('employees.status');
+        Route::post('/employees/{user}/appoint-head', [EmployeeController::class, 'appointHead'])->name('employees.appoint-head');
     });
 
     Route::middleware('role:head')->group(function () {

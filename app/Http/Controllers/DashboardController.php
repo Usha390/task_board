@@ -33,7 +33,7 @@ class DashboardController extends Controller
     {
         $stats = [
             'departments' => Department::count(),
-            'employees' => User::where('role', User::ROLE_EMPLOYEE)->where('is_active', true)->count(),
+                  'employees' => User::whereIn('role', [User::ROLE_EMPLOYEE, User::ROLE_HEAD])->where('is_active', true)->count(),
             'projects' => Project::where('status', Project::STATUS_ACTIVE)->count(),
             'overdue' => Task::where('status', '!=', Task::STATUS_DONE)
                 ->whereDate('deadline', '<', today())
